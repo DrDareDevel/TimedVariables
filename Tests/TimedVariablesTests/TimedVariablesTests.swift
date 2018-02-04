@@ -8,9 +8,9 @@ final class TimedVariablesTests: XCTestCase {
 		// Use XCTAssert and related functions to verify your tests produce the correct
 		// results.
 
-		var gyroscope:TimeStampedVariable = TimeStampedVariable(
+		var gyroscope:TimeBoundedVariable = TimeBoundedVariable(
 			data: 0,
-			timeStamp: DispatchTime.now().uptimeNanoseconds)
+		lower:0, upper: 1)
 
 		var diffs: [Double] = []
 
