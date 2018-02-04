@@ -2,89 +2,88 @@ import Foundation
 
 extension String: Error {}
 
-protocol Time_stamping{
-    var time_stamp:UInt64 {get}
-    mutating func update_timestamp()
+public protocol TimeStamp{
+    var data: UInt64 {get set}
+    var timeStamp:UInt64 {get}
+    mutating func updateTimeStamp()
 }
 
-protocol Time_bounded{
-    var time_stamp:UInt64 {get}
-    var upper_limit:Double {set get}
-    var lower_limit:Double {set get}
-    mutating func update_timestamp()
-    func check_bound()
-    func lower_exception() throws
-    func upper_exception() throws
-
+public protocol TimeBound: TimeStamp{
+    var upperLimit:Double {set get}
+    var lowerLimit:Double {set get}
+    func checkBound()
+    func lowerException() throws
+    func upperException() throws
 }
 
-struct Timeline1: Time_stamping{
-    var data: UInt64{
+public struct TimeStampedVariable: TimeStamp{
+    public var data: UInt64 {
         didSet{
-            update_timestamp()
+            updateTimeStamp()
         }
     }
-    var time_stamp: UInt64
-    mutating func update_timestamp() {
-        time_stamp = DispatchTime.now().uptimeNanoseconds
-
+    public private(set) var timeStamp: UInt64
+    public mutating func updateTimeStamp(){
+        timeStamp = DispatchTime.now().uptimeNanoseconds
     }
 }
 
-struct Timeline2: Time_bounded{
+public struct TimeBoundedVariable: TimeBound{
 
-    init(data: UInt64, lower: Double, upper: Double) {
+    public init(data: UInt64, lower: Double, upper: Double) {
         __data__ = data
-        lower_limit = lower
-        upper_limit = upper
-        time_stamp = DispatchTime.now().uptimeNanoseconds
-    }
-
-    mutating func update_timestamp() {
-        time_stamp = DispatchTime.now().uptimeNanoseconds
-    }
-
-    func lower_exception() throws {
-        throw "Too Young"
+        lowerLimit = lower
+        upperLimit = upper
+        timeStamp = DispatchTime.now().uptimeNanoseconds
     }
 
     private var __data__: UInt64
 
-    var data: UInt64 {
+    public private(set) var timeStamp: UInt64
+
+    public var lowerLimit: Double
+    public var upperLimit: Double
+
+    public var data: UInt64 {
         get {
-            check_bound()
+            checkBound()
             return __data__
         }
         set {
-            update_timestamp()
+            updateTimeStamp()
             __data__ = newValue
         }
     }
 
-    var time_stamp: UInt64
-    var lower_limit: Double
-    var upper_limit: Double
+    public mutating func updateTimeStamp() {
+        timeStamp = DispatchTime.now().uptimeNanoseconds
+    }
 
-    func upper_exception() throws {
+    public func lowerException() throws {
+        throw "Too Young"
+    }
+
+
+    public func upperException() throws {
         throw "Too Old"
     }
 
-    func check_bound() {
-        let temp = DispatchTime.now().uptimeNanoseconds - time_stamp
-        if temp > UInt64(upper_limit * 1e9){
-            do {
-                try upper_exception()
-            } catch let error{
-                Swift.print ("Error: \(error)")
-            }
+    public func checkBound(){
+        let temp = DispatchTime.now().uptimeNanoseconds - timeStamp
+        if temp > UInt64(upperLimit * 1e9){
+          do {
+              try upperException()
+          } catch let error {
+              print("Error: \(error)")
+          }
+
         }
-        else if temp < UInt64(lower_limit * 1e9){
-            do {
-                try lower_exception()
-            } catch let error{
-                Swift.print ("Error: \(error)")
-            }
+        else if temp < UInt64(lowerLimit * 1e9){
+          do {
+              try lowerException()
+          } catch let error {
+              print("Error: \(error)")
+          }
         }
     }
 }
-
