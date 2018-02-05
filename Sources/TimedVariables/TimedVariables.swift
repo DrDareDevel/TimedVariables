@@ -3,7 +3,8 @@ import Foundation
 extension String: Error {}
 
 public protocol TimeStamp{
-    var data: UInt64 {get set}
+    associatedtype myType
+    var data: myType {get set}
     var timeStamp:UInt64 {get}
     mutating func updateTimeStamp()
 }
@@ -16,8 +17,8 @@ public protocol TimeBound: TimeStamp{
     func upperException() throws
 }
 
-public struct TimeStampedVariable: TimeStamp{
-    public var data: UInt64 {
+public struct TimeStampedVariable<T>: TimeStamp{
+    public var data: T {
         didSet{
             updateTimeStamp()
         }
@@ -28,23 +29,23 @@ public struct TimeStampedVariable: TimeStamp{
     }
 }
 
-public struct TimeBoundedVariable: TimeBound{
+public struct TimeBoundedVariable<T>: TimeBound{
 
-    public init(data: UInt64, lower: Double, upper: Double) {
+    public init(data: T, lower: Double, upper: Double) {
         __data__ = data
         lowerLimit = lower
         upperLimit = upper
         timeStamp = DispatchTime.now().uptimeNanoseconds
     }
 
-    private var __data__: UInt64
+    private var __data__: T
 
     public private(set) var timeStamp: UInt64
 
     public var lowerLimit: Double
     public var upperLimit: Double
 
-    public var data: UInt64 {
+    public var data:T {
         get {
             checkBound()
             return __data__
