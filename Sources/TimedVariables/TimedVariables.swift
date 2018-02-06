@@ -2,34 +2,34 @@ import Foundation
 
 extension String: Error {}
 
-public protocol TimeStamp{
+public protocol TimeStamped {
     associatedtype T
     var data: T {get set}
-    var timeStamp:UInt64 {get}
+    var timeStamp: UInt64 {get}
     mutating func updateTimeStamp()
 }
 
-public protocol TimeBound: TimeStamp{
-    var upperLimit:Double {set get}
-    var lowerLimit:Double {set get}
+public protocol TimeBounded: TimeStamped {
+    var upperLimit: Double {set get}
+    var lowerLimit: Double {set get}
     func checkBound()
     func lowerException() throws
     func upperException() throws
 }
 
-public struct TimeStampedVariable<T>: TimeStamp{
+public struct TimeStampedVariable<T>: TimeStamped {
     public var data: T {
         didSet{
             updateTimeStamp()
         }
     }
     public private(set) var timeStamp: UInt64
-    public mutating func updateTimeStamp(){
+    public mutating func updateTimeStamp() {
         timeStamp = DispatchTime.now().uptimeNanoseconds
     }
 }
 
-public struct TimeBoundedVariable<T>: TimeBound{
+public struct TimeBoundedVariable<T>: TimeBounded {
 
     public init(data: T, lower: Double, upper: Double) {
         __data__ = data
