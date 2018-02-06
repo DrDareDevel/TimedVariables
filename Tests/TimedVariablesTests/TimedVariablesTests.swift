@@ -8,13 +8,11 @@ final class TimedVariablesTests: XCTestCase {
 		// Use XCTAssert and related functions to verify your tests produce the correct
 		// results.
 
-		var gyroscope:TimeBoundedVariable<UInt64> = TimeBoundedVariable<UInt64>(
-			data: 0,
-			lower:0, upper: 1)
+		var gyroscope = TimeBoundedVariable<UInt64>(0)
 
 		var diffs: [Double] = []
 
-		for _ in 1...100000 {
+		for _ in 1...1000000 {
 			gyroscope.data = DispatchTime.now().uptimeNanoseconds
 			diffs.append(Double(gyroscope.timeStamp - gyroscope.data))
 		}
@@ -23,9 +21,9 @@ final class TimedVariablesTests: XCTestCase {
 		let med: Double = Sigma.median(diffs)!
 		let std: Double = Sigma.standardDeviationPopulation(diffs)!
 
-		//for d in diffs {
+		// for d in diffs {
 		//    print(d)
-		//}
+		// }
 
 		print("Average: \(avg) Median: \(med) Std: \(std)\n")
 
