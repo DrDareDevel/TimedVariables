@@ -1,90 +1,37 @@
 import Foundation
 
-extension String: Error {}
-
-public protocol TimeStamped {
-    associatedtype T
-    var data: T {get set}
-    var timeStamp: UInt64 {get}
-    mutating func updateTimeStamp()
-}
-
-public protocol TimeBounded: TimeStamped {
-    var upperLimit: Double {set get}
-    var lowerLimit: Double {set get}
-    func checkBound()
-    func lowerException() throws
-    func upperException() throws
-}
-
-public struct TimeStampedVariable<T>: TimeStamped {
-    public var data: T {
+public struct TimeStampedVariable<D> {
+    public var data: D {
         didSet{
-            updateTimeStamp()
+          timeStamp = DispatchTime.now().uptimeNanoseconds
         }
     }
     public private(set) var timeStamp: UInt64
-    public mutating func updateTimeStamp() {
-        timeStamp = DispatchTime.now().uptimeNanoseconds
-    }
 }
 
-public struct TimeBoundedVariable<T>: TimeBounded {
+public struct TimeBoundedVariable<D> {
 
-    public init(data: T, lower: Double, upper: Double) {
-        __data__ = data
-        lowerLimit = lower
-        upperLimit = upper
-        timeStamp = DispatchTime.now().uptimeNanoseconds
+    public typealias ReadAccessHandler = (D, UInt64) -> D
+
+    public init(_ data: D, with handler: @escaping ReadAccessHandler = { s1, _ in return s1 } ) {
+      timeStamp = DispatchTime.now().uptimeNanoseconds
+      __data__ = data
+      readHandler = handler
     }
 
-    private var __data__: T
+    private var __data__: D
 
     public private(set) var timeStamp: UInt64
+    public var readHandler: ReadAccessHandler! = nil
 
-    public var lowerLimit: Double
-    public var upperLimit: Double
-
-    public var data:T {
+    public var data: D {
         get {
-            checkBound()
-            return __data__
+            return readHandler(__data__, timeStamp)
         }
         set {
-            updateTimeStamp()
+            timeStamp = DispatchTime.now().uptimeNanoseconds
             __data__ = newValue
         }
     }
-
-    public mutating func updateTimeStamp() {
-        timeStamp = DispatchTime.now().uptimeNanoseconds
-    }
-
-    public func lowerException() throws {
-        throw "Too Young"
-    }
-
-
-    public func upperException() throws {
-        throw "Too Old"
-    }
-
-    public func checkBound(){
-        let temp = DispatchTime.now().uptimeNanoseconds - timeStamp
-        if temp > UInt64(upperLimit * 1e9){
-          do {
-              try upperException()
-          } catch let error {
-              print("Error: \(error)")
-          }
-
-        }
-        else if temp < UInt64(lowerLimit * 1e9){
-          do {
-              try lowerException()
-          } catch let error {
-              print("Error: \(error)")
-          }
-        }
-    }
-}
+  }
+  
