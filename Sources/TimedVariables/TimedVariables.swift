@@ -3,8 +3,8 @@ import Foundation
 extension String: Error {}
 
 public protocol TimeStamp{
-    associatedtype myType
-    var data: myType {get set}
+    associatedtype T
+    var data: T {get set}
     var timeStamp:UInt64 {get}
     mutating func updateTimeStamp()
 }
