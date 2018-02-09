@@ -1,0 +1,74 @@
+            CPU0       CPU1       CPU2       CPU3       
+   0:         24          0          0          0   IO-APIC    2-edge      timer
+   1:          2          0          0          0   IO-APIC    1-edge      i8042
+   5:          0          0          0          0   IO-APIC    5-edge      parport0
+   7:         14          0          0          0   IO-APIC    7-edge    
+   8:          1          0          0          0   IO-APIC    8-edge      rtc0
+   9:          4          0          0          0   IO-APIC    9-fasteoi   acpi
+  12:          4          0          0          0   IO-APIC   12-edge      i8042
+ 120:          0          0          0          0   PCI-MSI 442368-edge      aerdrv, PCIe PME
+ 121:          0          0          0          0   PCI-MSI 458752-edge      PCIe PME, pciehp
+ 122:          0          0          0          0   PCI-MSI 466944-edge      PCIe PME, pciehp
+ 123:          0          0          0          0   PCI-MSI 475136-edge      PCIe PME, pciehp
+ 124:          0          0          0          0   PCI-MSI 483328-edge      PCIe PME
+ 125:         73          0       1207          0   PCI-MSI 327680-edge      xhci_hcd
+ 126:       2564     201540          0          0   PCI-MSI 376832-edge      0000:00:17.0
+ 127:         21          0     520632          0   PCI-MSI 520192-edge      enp0s31f6
+ 128:     276321          0          0          0   PCI-MSI 32768-edge      i915_bpo
+ 129:         46          0          0          0   PCI-MSI 360448-edge      mei_me
+ 130:        779          0          0          0   PCI-MSI 514048-edge      snd_hda_intel
+ NMI:          9          8          8         19   Non-maskable interrupts
+ LOC:    1593417    1207551    1263055     276450   Local timer interrupts
+ SPU:          0          0          0          0   Spurious interrupts
+ PMI:          9          8          8         19   Performance monitoring interrupts
+ IWI:          0          0          0          0   IRQ work interrupts
+ RTR:          1          0          0          0   APIC ICR read retries
+ RES:     820288     164501      10723        156   Rescheduling interrupts
+ CAL:       4966       5021       1006       5488   Function call interrupts
+ TLB:        177        163        209          0   TLB shootdowns
+ TRM:          0          0          0          0   Thermal event interrupts
+ THR:          0          0          0          0   Threshold APIC interrupts
+ DFR:          0          0          0          0   Deferred Error APIC interrupts
+ MCE:          0          0          0          0   Machine check exceptions
+ MCP:       1131       1131       1131       1131   Machine check polls
+ ERR:         14
+ MIS:          0
+ PIN:          0          0          0          0   Posted-interrupt notification event
+ PIW:          0          0          0          0   Posted-interrupt wakeup event
+            CPU0       CPU1       CPU2       CPU3       
+   0:         24          0          0          0   IO-APIC    2-edge      timer
+   1:          2          0          0          0   IO-APIC    1-edge      i8042
+   5:          0          0          0          0   IO-APIC    5-edge      parport0
+   7:         14          0          0          0   IO-APIC    7-edge    
+   8:          1          0          0          0   IO-APIC    8-edge      rtc0
+   9:          4          0          0          0   IO-APIC    9-fasteoi   acpi
+  12:          4          0          0          0   IO-APIC   12-edge      i8042
+ 120:          0          0          0          0   PCI-MSI 442368-edge      aerdrv, PCIe PME
+ 121:          0          0          0          0   PCI-MSI 458752-edge      PCIe PME, pciehp
+ 122:          0          0          0          0   PCI-MSI 466944-edge      PCIe PME, pciehp
+ 123:          0          0          0          0   PCI-MSI 475136-edge      PCIe PME, pciehp
+ 124:          0          0          0          0   PCI-MSI 483328-edge      PCIe PME
+ 125:         73          0       1207          0   PCI-MSI 327680-edge      xhci_hcd
+ 126:       2564     201552          0          0   PCI-MSI 376832-edge      0000:00:17.0
+ 127:         21          0     520637          0   PCI-MSI 520192-edge      enp0s31f6
+ 128:     276321          0          0          0   PCI-MSI 32768-edge      i915_bpo
+ 129:         46          0          0          0   PCI-MSI 360448-edge      mei_me
+ 130:        779          0          0          0   PCI-MSI 514048-edge      snd_hda_intel
+ NMI:          9          8          8         19   Non-maskable interrupts
+ LOC:    1593500    1207560    1263077     276847   Local timer interrupts
+ SPU:          0          0          0          0   Spurious interrupts
+ PMI:          9          8          8         19   Performance monitoring interrupts
+ IWI:          0          0          0          0   IRQ work interrupts
+ RTR:          1          0          0          0   APIC ICR read retries
+ RES:     820290     164503      10723        158   Rescheduling interrupts
+ CAL:       4966       5021       1006       5488   Function call interrupts
+ TLB:        177        163        209          0   TLB shootdowns
+ TRM:          0          0          0          0   Thermal event interrupts
+ THR:          0          0          0          0   Threshold APIC interrupts
+ DFR:          0          0          0          0   Deferred Error APIC interrupts
+ MCE:          0          0          0          0   Machine check exceptions
+ MCP:       1131       1131       1131       1131   Machine check polls
+ ERR:         14
+ MIS:          0
+ PIN:          0          0          0          0   Posted-interrupt notification event
+ PIW:          0          0          0          0   Posted-interrupt wakeup event
