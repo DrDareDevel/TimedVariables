@@ -4,22 +4,19 @@ import SigmaSwiftStatistics
 
 final class TimedVariablesTests: XCTestCase {
 	func testExample() {
-		// This is an example of a functional test case.
-		// Use XCTAssert and related functions to verify your tests produce the correct
-		// results.
-
+		let NUM_OF_ITERATIONS = 1000000
 		var gyroscope = TimeBoundedVariable<UInt64>(0)
 
-		var diffs: [Double] = []
+		var diffs: [Double] = [Double](repeating: 0.0, count: NUM_OF_ITERATIONS)
 
-		for _ in 1...1000000 {
+		for _ in 1...NUM_OF_ITERATIONS {
 			gyroscope.data = DispatchTime.now().uptimeNanoseconds
 			diffs.append(Double(gyroscope.timeStamp - gyroscope.data))
 		}
 
-		// let avg: Double = Sigma.average(diffs)!
-		// let med: Double = Sigma.median(diffs)!
-		// let std: Double = Sigma.standardDeviationPopulation(diffs)!
+	 let avg: Double = Sigma.average(diffs)!
+	 let med: Double = Sigma.median(diffs)!
+	 let std: Double = Sigma.standardDeviationPopulation(diffs)!
 
 		for d in diffs {
 		   print(d)
@@ -27,7 +24,7 @@ final class TimedVariablesTests: XCTestCase {
 
 		// print("Average: \(avg) Median: \(med) Std: \(std)\n")
 
-		// XCTAssertTrue(std <= 4*med)
+		XCTAssertTrue(std <= 4*med)
 	}
 
 
