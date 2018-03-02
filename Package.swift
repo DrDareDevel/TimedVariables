@@ -25,6 +25,9 @@ let package = Package(
         .target(
             name: "ATSBenchmark",
             dependencies: ["TimedVariables","SigmaSwiftStatistics"]),
+        .target(
+            name: "HDBenchmark",
+            dependencies: ["TimedVariables","SigmaSwiftStatistics"]),
         .testTarget(
             name: "TimedVariablesTests",
             dependencies: ["TimedVariables","SigmaSwiftStatistics"]),
