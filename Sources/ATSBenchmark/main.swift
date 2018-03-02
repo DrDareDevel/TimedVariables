@@ -3,7 +3,7 @@ import SigmaSwiftStatistics
 import TimedVariables
 
 let NUM_OF_ITERATIONS = 1000000
-var gyroscope = TimeBoundedVariable<UInt64>(0)
+var gyroscope = TimeBoundedData<UInt64>(0)
 var diffs: [Double] = [Double](repeating: 0.0, count: NUM_OF_ITERATIONS)
 let startTime: UInt64 = DispatchTime.now().uptimeNanoseconds
 

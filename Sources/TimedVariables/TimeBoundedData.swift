@@ -1,15 +1,6 @@
 import Foundation
 
-public struct TimeStampedVariable<D> {
-    public var data: D {
-        didSet{
-          timeStamp = DispatchTime.now().uptimeNanoseconds
-        }
-    }
-    public private(set) var timeStamp: UInt64
-}
-
-public struct TimeBoundedVariable<D> {
+public struct TimeBoundedData<D> {
 
     public typealias ReadAccessHandler = (D, UInt64) -> D
 
