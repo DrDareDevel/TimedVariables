@@ -22,6 +22,14 @@ public struct HistoricalData<D> {
   }
   
   subscript(index: UInt64) -> (D,UInt64) {
-    return __data__[Int(index)]
+    let t = DispatchTime.now().uptimeNanoseconds - index
+    
+    for i in __data__.reversed() {
+        if t >= i.1 {
+            return i
+        }
+    }
+    
+    return __data__[0]
   }
 }
